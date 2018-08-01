@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+<br>
+<br>
+<br>
+<div>
+    <form action="/mykline" method="post">
+        <div class="form-group">
+            <label>请选择股票</label>
+            <select class="form-control" name="stock" >
+                <option>600606</option>
+                <option>600622</option>
+                <option>000333</option>
+                <option>000418</option>
+                <option>002677</option>
+            </select>
+        </div>
+
+       <div class="form-group">
+            <label>请选择开始日期</label>
+            <input type="date" class="form-control" name="beginDay" value="2018-06-01">
+        </div>
+
+       <div class="form-group">
+            <label>请选择结束日期</label>
+            <input type="date" class="form-control" name="endDay" value="2018-07-01">
+        </div>
+
+
+
+        {#  <div class="form-group">
+    <label for="exampleInputPassword1">你会出多少钱</label>
+    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputFile">上传图片</label>
+    <input type="file" id="exampleInputFile">
+    <p class="help-block">不要上传反动图片哦</p>
+  </div>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox"> 以上我都认可啦
+    </label>
+  </div>#}
+
+        <button type="submit" class="btn btn-upload">提交</button>
+    </form>
+    <br><br>
+
+</div>
+<div id="mychart" style="width: 100px;">
+    {{ myechart|safe }}
+</div>
+
+
+<div>
+<table class="table">
+    <tr>
+        <th>日期</th>
+        <th>开盘</th>
+        <th>闭市</th>
+        <th>最低</th>
+        <th>最高</th>
+    </tr>
+    {% for kRow in kAll %}
+        <tr>
+        {% for foo in kRow %}
+           <td>{{ foo }}</td>
+
+        {% endfor %}
+
+    </tr>
+    {% endfor %}
+
+</table>
+
+
+</div>
+
+{% endblock %}
