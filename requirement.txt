@@ -1,6 +1,23 @@
+
+#install Anaconda2
+yum install -y bzip2
+yum install freeglut-devel
+
+#https://www.anaconda.com/download/
+wget https://repo.anaconda.com/archive/Anaconda2-5.2.0-Linux-x86_64.sh
+bash Anaconda2-5.2.0-Linux-x86_64.sh
+
+#change $PATH
+yes
+no
+
+
+
+#install others
 abupy
 Flask
-numpy
-pandas
 tushare
 pyecharts
+
+
+gunicorn
