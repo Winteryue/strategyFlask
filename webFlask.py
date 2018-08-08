@@ -27,18 +27,26 @@ def futures():
     return render_template("futures.html")
 
 
-@app.route("/strategy")
+@app.route("/strategy",methods=['GET','POST'])
 def strategy():
 
-    buyStrategy = BuyTrendStrategy('usTSLA',60,1000000)
+    form = request.form
+    getStock = form.get('stock')
+    stock = getStock if  getStock   else  "usTSLA"
+
+    getCircle = form.get('circle')
+    circle = getCircle if  getCircle   else  "120"
+
+
+    buyStrategy = BuyTrendStrategy(stock ,int(circle),1000000)
     closeDayList, closeValueList = buyStrategy.get_close_line()
     buyDayList, buyValueList = buyStrategy.get_buy_point()
 
-    closeLine = Line("趋势购买策略")
-    closeLine.add("usTSLA", closeDayList, closeValueList)
+    closeLine = Line("趋势购买策略",width="400", height="300")
+    closeLine.add( stock , closeDayList, closeValueList)
 
-    buyES = EffectScatter("购买点")
-    buyES.add("购买点",buyDayList,buyValueList,symbol_size=16,effect_scale=5.5,effect_period=3,symbol="triangle")
+    buyES = EffectScatter("购买点",width="400", height="300")
+    buyES.add("购买点",buyDayList,buyValueList,symbol_size=8,effect_scale=3,effect_period=3,symbol="triangle")
 
     overlap = Overlap()
     overlap.add(closeLine)
